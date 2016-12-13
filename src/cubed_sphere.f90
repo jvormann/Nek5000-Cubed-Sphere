@@ -79,7 +79,5 @@ CALL write_curvature_to_rea(grid_curv, nel, curvature_file)
 CALL write_bcs_to_rea(grid_bc_V_type, grid_bc_V_value, nel, nelcore, nelmantle, bc_V_file, 'V')
 CALL write_bcs_to_rea(grid_bc_T_type, grid_bc_T_value, nel, nelcore, nelmantle, bc_T_file, 'T')
 CALL write_bcs_to_rea(grid_bc_B_type, grid_bc_B_value, nel, nelcore, nelmantle, bc_B_file, 'B')
-!PRINT*,'Remember to set ellip=',ellip,' in .rea!'
-PRINT*,'Remember to set param(83)=',shell_ratio,' in .rea-file!'
-PRINT*,'Done, call joinrea.sh to create .rea files'
+WRITE(*,'(A)') 'Done, call joinrea.sh to create .rea files'
 END PROGRAM cubed_sphere
