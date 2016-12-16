@@ -1,0 +1,9 @@
+bc_?.rea
+curvature.rea
+elements.rea
+cubed.out
+*.out
+*.mod
+*~
+.DS_Store
+.tags
