@@ -41,7 +41,7 @@
    1.00000     p037 Ellipticity
    0.00000     p038 =1 scale with diffusive time scale, other: scale with rotational scale
    1.00000     p039 Ekman number for diffusive time scale
-   0.00000     p040
+   1.00000     p040 Prandtlnumber
    0.00000     p041 1-->multiplicative SEMG
    0.00000     p042 0=gmres/1=pcg
    0.00000     p043 0=semg/1=schwarz
