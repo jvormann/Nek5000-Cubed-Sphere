@@ -6,4 +6,4 @@ cubed.out
 *.mod
 *~
 .DS_Store
-.tags
+.tags*
