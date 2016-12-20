@@ -3,6 +3,7 @@ curvature.rea
 elements.rea
 cubed.out
 *.out
+src/makefile
 *.mod
 *~
 .DS_Store
