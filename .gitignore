@@ -1,4 +1,5 @@
-bc_?.rea
+bc_*.rea
+rea_*.rea
 curvature.rea
 elements.rea
 cubed.out
