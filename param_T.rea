@@ -2,14 +2,14 @@
    2.610000      NEKTON VERSION
            3  DIMENSIONAL RUN
          118  PARAMETERS FOLLOW
-   1.00000     p001 DENSITY
-   1.00000     p002 VISCOSITY (Ekmannumber for param(38)!=1)
+   1.00000     p001 DENSITY   (Ekmannumber for param(38)=1)
+   1.00000     p002 VISCOSITY (Ekmannumber, p1=p2 for param(38)=1!)
    0.00000     p003
    0.00000     p004
    0.00000     p005
    0.00000     p006
    1.00000     p007 RHOCP
-   1.00000     p008 CONDUCT
+   1.00000     p008 CONDUCT (1/Pr for param(38)=1)
    0.00000     p009
    0.00000     p010 FINTIME
    300000      p011 NSTEPS
@@ -40,7 +40,7 @@
    60.0000     p036 Precession axis angle in degrees
    1.00000     p037 Ellipticity
    0.00000     p038 =1 scale with diffusive time scale, other: scale with rotational scale
-   1.00000     p039 Ekman number for diffusive time scale
+   1.00000     p039
    1.00000     p040 Prandtlnumber
    0.00000     p041 1-->multiplicative SEMG
    0.00000     p042 0=gmres/1=pcg
@@ -125,10 +125,11 @@
    0.00000       0.00000       0.00000       0.00000
    0.00000       0.00000       0.00000       0.00000       0.00000
    0.00000       0.00000       0.00000       0.00000
-          13   LOGICAL SWITCHES FOLLOW
+          14   LOGICAL SWITCHES FOLLOW
  T      IFFLOW
  T      IFHEAT
  T      IFTRAN
+ F      IFUSERVP
  T T F F F F F F F F F  IFNAV & IFADVC (convection in P.S. fields)
  F F T T T T T T T T T T  IFTMSH (IF mesh for this field is T mesh)
  F      IFAXIS

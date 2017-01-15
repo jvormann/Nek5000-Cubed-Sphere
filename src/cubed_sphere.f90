@@ -2,13 +2,14 @@ PROGRAM cubed_sphere
 USE grid_routines
 IMPLICIT NONE
 INTEGER :: nphi, nr, nel, nrm, nelcore, nelmantle
-INTEGER :: r_method, phi_method, mantle
+INTEGER :: r_method, phi_method, mantle,T_method
 REAL (KIND=8), ALLOCATABLE, DIMENSION (:,:,:) :: grid
+CHARACTER (len=3) :: bc_T_type
 CHARACTER (len=3), ALLOCATABLE, DIMENSION (:,:) :: grid_bc_T_type,  grid_bc_V_type, grid_bc_B_type
 REAL (KIND=8), ALLOCATABLE, DIMENSION (:,:,:) :: grid_bc_T_value, grid_bc_V_value, grid_bc_B_value
 Real (KIND=8), ALLOCATABLE, DIMENSION (:,:) :: grid_curv
 REAL (KIND=8) :: r_i, r_o, d, shell_ratio, dmantle
-REAL (KIND=8) :: ellip
+REAL (KIND=8) :: ellip,T_in,T_out
 CHARACTER (len=100) :: element_file, curvature_file, bc_T_file, bc_V_file, bc_B_file
 PRINT*,'Number of angular elements NPHI for one side of the cube?'
 READ*,nphi
@@ -44,6 +45,21 @@ PRINT*,'Inner radius r_i=',r_i
 !Uncomment to enable option.
 !PRINT*,'Add a mantle layer? (1) Yes -- (2) No'
 !READ*,mantle
+PRINT*,'Set Temperature boundary conditions in grid (1) or in userbc(2)?'
+READ*,T_method
+IF (T_method .EQ. 1) THEN
+  bc_T_type='T  '
+  PRINT*,'Temperature at inner core boundary?'
+  READ*,T_in
+  PRINT*,'Temperature at outer core boundary?'
+  READ*,T_out
+ELSE
+  grid_bc_T_type='t  '
+  T_in=0.
+  T_out=0.
+  PRINT*,'Remember to set BCs in .usr file!'
+ENDIF
+
 nrm=0
 mantle=2
 IF (mantle .EQ. 1) THEN
@@ -68,7 +84,7 @@ ALLOCATE(grid_curv(1:nel,1:6))
 CALL get_cubed_sphere(grid,grid_bc_T_type, grid_bc_T_value,grid_bc_V_type, &
                           &grid_bc_V_value,grid_bc_B_type, grid_bc_B_value, &
                           &grid_curv,nphi, nr, r_method, phi_method, r_i, r_o, &
-                          &mantle,dmantle,nrm,ellip)
+                          &mantle,dmantle,nrm,ellip,bc_T_type,bc_T_type,T_in,T_out)
 element_file='elements.rea'
 curvature_file='curvature.rea'
 bc_V_file='bc_V.rea'

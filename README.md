@@ -6,6 +6,7 @@ To use:
 * run joinrea.sh to stitch the files together for different use scenarios (only velocity, velocity and heat, magnetohydrodynamics)
 * copy the appropriate .rea file to your project folder
 * remember to change the SIZE file and parameters in .rea before running
+
 The program asks for the angular and radial resolution: the radial resolution is the number of cartesian grid points on one side of the cube, the radial resolution is the number of elements from the inner to the outer boundary. They can either be distributed equidistant or with the Gauss Lobatto distribution (denser at the boundary). Distance between the boundaries is fixed to 1.0. The total number of elements is then 6*nr*nphi*nphi, while the polynomial order and total resolution is controlled in the SIZE file of the simulation.
 To create a spheroid or ellipsoid, the grid can be deformed in the usrdat2 routine in .usr.
 
