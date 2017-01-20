@@ -54,7 +54,7 @@ IF (T_method .EQ. 1) THEN
   PRINT*,'Temperature at outer core boundary?'
   READ*,T_out
 ELSE
-  grid_bc_T_type='t  '
+  bc_T_type='t  '
   T_in=0.
   T_out=0.
   PRINT*,'Remember to set BCs in .usr file!'
