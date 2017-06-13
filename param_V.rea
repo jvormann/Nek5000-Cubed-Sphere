@@ -2,8 +2,8 @@
   2.610000      NEKTON VERSION
           3  DIMENSIONAL RUN
         118  PARAMETERS FOLLOW
-  1.00000     p001 DENSITY   (Ekmannumber for diff. timescale,else 1.)
-  1.00000     p002 VISCOSITY (Ekmannumber)
+  1.00000     p001 DENSITY
+  1.00000     p002 VISCOSITY
   0.00000     p003
   0.00000     p004
   0.00000     p005
@@ -40,7 +40,7 @@
   60.0000     p036 Precession axis angle in degrees
   1.00000     p037 Ellipticity
   0.00000     p038
-  1.00000     p039
+  0.00000     p039
   0.00000     p040
   0.00000     p041 1-->multiplicative SEMG
   0.00000     p042 0=gmres/1=pcg
