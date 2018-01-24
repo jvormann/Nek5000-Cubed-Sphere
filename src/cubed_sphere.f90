@@ -2,10 +2,10 @@ PROGRAM cubed_sphere
 USE grid_routines
 IMPLICIT NONE
 INTEGER :: nphi, nr, nel, nrm, nelcore, nelmantle
-INTEGER :: r_method, phi_method, mantle,T_method
+INTEGER :: r_method, phi_method, mantle,T_method,V_method
 REAL (KIND=8), ALLOCATABLE, DIMENSION (:,:,:) :: grid
-CHARACTER (len=3) :: bc_T_type
-CHARACTER (len=3), ALLOCATABLE, DIMENSION (:,:) :: grid_bc_T_type,  grid_bc_V_type, grid_bc_B_type
+CHARACTER (len=3) :: bc_T_type, bc_Vout_type, bc_Vin_type
+CHARACTER (len=3), ALLOCATABLE, DIMENSION (:,:) :: grid_bc_T_type, grid_bc_V_type, grid_bc_B_type
 REAL (KIND=8), ALLOCATABLE, DIMENSION (:,:,:) :: grid_bc_T_value, grid_bc_V_value, grid_bc_B_value
 Real (KIND=8), ALLOCATABLE, DIMENSION (:,:) :: grid_curv
 REAL (KIND=8) :: r_i, r_o, d, shell_ratio, dmantle
@@ -23,19 +23,16 @@ IF ( nr .LE. 1) nr=2
 !READ*,phi_method
 phi_method=2
 IF ((phi_method .NE. 1) .AND. (phi_method .NE. 2)) STOP
-PRINT*,'Radial Distribution: equidistant (1) or Gauss Lobatto (2)'
-READ*, r_method
-IF ((r_method .NE. 1) .AND. (r_method .NE. 2)) STOP
+!PRINT*,'Radial Distribution: equidistant (1) or Gauss Lobatto (2)'
+!READ*, r_method
+!IF ((r_method .NE. 1) .AND. (r_method .NE. 2)) STOP
+r_method=2
 PRINT*,'Ratio inner/outer radius?'
 READ*,shell_ratio
 !The thickness of the shell should usually be 1. Uncomment to enable option.
 !PRINT*,'Spherical shell thickness?'
 !READ*,d
 d=1.0_8
-!Changes to the ellipticity should be made in the .usr file (usrdat2 routine)
-!Uncomment to enable option.
-!PRINT*,'Ellipticity c/a?'
-!READ*,ellip
 ellip=1.0d0
 r_o=d/(1.0_8-shell_ratio)
 r_i=r_o-d
@@ -60,6 +57,20 @@ ELSE
   PRINT*,'Remember to set BCs in .usr file!'
 ENDIF
 
+PRINT*,'Velocity boundary condition on outer wall: no-slip(1) or stress-free(2)?'
+READ*,V_method
+IF (V_method .EQ. 1) THEN
+    bc_Vout_type='v  '
+ELSEIF (V_method .EQ. 2) THEN
+    bc_Vout_type='SYM'
+ENDIF
+PRINT*,'Velocity boundary condition on inner wall: no-slip(1) or stress-free(2)?'
+READ*,V_method
+IF (V_method .EQ. 1) THEN
+    bc_Vin_type='v  '
+ELSEIF (V_method .EQ. 2) THEN
+    bc_Vin_type='SYM'
+ENDIF
 nrm=0
 mantle=2
 IF (mantle .EQ. 1) THEN
@@ -84,7 +95,8 @@ ALLOCATE(grid_curv(1:nel,1:6))
 CALL get_cubed_sphere(grid,grid_bc_T_type, grid_bc_T_value,grid_bc_V_type, &
                           &grid_bc_V_value,grid_bc_B_type, grid_bc_B_value, &
                           &grid_curv,nphi, nr, r_method, phi_method, r_i, r_o, &
-                          &mantle,dmantle,nrm,ellip,bc_T_type,bc_T_type,T_in,T_out)
+                          &mantle,dmantle,nrm,ellip,bc_Vout_type,bc_Vin_type, &
+                          &bc_T_type,bc_T_type,T_in,T_out)
 element_file='elements.rea'
 curvature_file='curvature.rea'
 bc_V_file='bc_V.rea'

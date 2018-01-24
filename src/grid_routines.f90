@@ -13,7 +13,7 @@ SUBROUTINE get_cubed_sphere (cub_sphere_coord,&
 &cub_sphere_bc_V_type, cub_sphere_bc_V_value, &
 &cub_sphere_bc_B_type, cub_sphere_bc_B_value, &
 &cub_sphere_curv,nphif, nr, r_method, phi_method,r_i,r_o, &
-&mantle,dmantle,nrm,ellip, bc_t_ic, bc_t_oc,bc_t_val1, bc_t_val2)
+&mantle,dmantle,nrm,ellip,bc_V_oc,bc_V_ic,bc_t_ic, bc_t_oc,bc_t_val1, bc_t_val2)
 !Returns the coordinates of the corner points of spectral elements, boundary conditions and curved sides
 !in a cubed sphere grid
 INTEGER :: nphif,nphi, nr, nrm
@@ -38,8 +38,8 @@ CHARACTER (len=3) :: bc_v_ic, bc_v_oc, bc_t_ic, bc_t_oc, bc_b_ic, bc_b_oc
 CHARACTER (len=3) :: bc_v_m, bc_t_m, bc_b_m
 REAL (KIND=8) :: bc_t_val1,bc_t_val2,bc_t_val3
 !Set boundary condition strings
-bc_v_ic='v  '
-bc_v_oc='v  '
+!bc_v_ic='v  '
+!bc_v_oc='v  '
 bc_v_m ='E  '
 !bc_t_ic='t  '
 !bc_t_oc='t  '
